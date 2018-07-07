@@ -1,29 +1,50 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int d[1000005],n,a;
-
+int sieve[1000005];
+int n,k,j;
+long long a,b;
+vector<int>prime;
+vector<int>want;
 int main()
 {
-    for(int i=2;i<=1000000;i++) {
-        int j;
-        for(j=2;j<=sqrt(i);j++) {
-            if(i%j==0){
-                break;
+    sieve[1]=1;
+    for(int i=2;i<=sqrt(1000000);i++) {
+        if(sieve[i]==0) {
+            for(int j=i*i; j<=1000000;j+=i) {
+                sieve[j]=1;
             }
         }
-        if(j>sqrt(i)){
-            a++;
-        }
     }
-    printf("%d\n",a);
-//    for(int i=1;i<=10;i++)
-//        printf("%d : %d\n",i,i-(d[i]-1));
-//    scanf("%d",&n);
-//    while(n--) {
-//        scanf("%d",&a);
-//        printf("-%d\n",a-(d[a]-1));
-//    }
-
+    for(int i=2;i<=1000000;i++) {
+        if(!sieve[i])
+            prime.push_back(i);
+    }
+    scanf("%d",&n);
+    while(n--) {
+        scanf("%d",&k);
+        j=0;
+        a=k;
+        want.clear();
+        while(k > 1) {
+            if(!sieve[k]&&(want.size()==0 || want.back()!=k)) {
+                want.push_back(k);
+                break;
+            }
+            if(k%prime[j]==0) {
+                if(want.size()==0 || want.back()!=prime[j])
+                    want.push_back(prime[j]);
+                k/=prime[j];
+            } else {
+                j++;
+            }
+        }
+        b=1;
+        for(int i=0;i<want.size();i++) {
+            a*=(long long)want[i]-1;
+            b*=(long long)want[i];
+        }
+        printf("%lld\n",a/b);
+    }
     return 0;
 }
