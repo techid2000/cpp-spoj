@@ -1,0 +1,6 @@
+*.o
+*.exe
+*.json
+iofiles
+tempCodeRunnerFile.cpp
+desktop.ini
