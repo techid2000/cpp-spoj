@@ -1,6 +1,6 @@
 *.o
 *.exe
-*.json
+.vscode
 iofiles
 tempCodeRunnerFile.cpp
 desktop.ini
